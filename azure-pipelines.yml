@@ -15,19 +15,20 @@ strategy:
     windows:
       imageName: "vs2017-win2016"
   maxParallel: 3
-  
-  matrix:
-    jdk10:
-      jdk_version: "1.10"
-    jdk11:
-      jdk_version: "1.11"
-  maxParallel: 2
+
 
 pool:
   vmImage: $(imageName)
 
 steps:
 - task: Maven@3
+ strategy:
+  matrix:
+    jdk10:
+      jdk_version: "1.10"
+    jdk11:
+      jdk_version: "1.11"
+  maxParallel: 2
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
